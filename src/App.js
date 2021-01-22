@@ -5,9 +5,9 @@ function App() {
   return (
     <Page>
       <header className="flex mx-5 justify-between">
-        <a>Todo</a>
-        <a>Doing</a>
-        <a>Done</a>
+        <a href="#sdf">Todo</a>
+        <a href="#sdf">Doing</a>
+        <a href="#sdf">Done</a>
       </header>  
       <Board />
     </Page>
