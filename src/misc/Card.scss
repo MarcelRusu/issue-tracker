@@ -1,0 +1,97 @@
+
+// Variables
+$link-color: #0d6efd;
+$border-color: #8080806e;
+
+* {
+  font-family: sans-serif;
+  transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+}
+.muted {
+  color: #00000088;
+}
+
+.body {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+// meta classes
+.--padding-light {
+  padding: 10px;
+}
+
+.--padding {
+  padding: 15px;
+}
+
+.--border-radius {
+  border-radius: 3px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+  font-weight: 600;
+}
+@for $i from 1 through 6 {
+  :not(header) > h#{$i} {
+    margin-bottom: 15px;
+  }
+}
+
+
+
+// base card styling
+.card {
+  @extend .--border-radius;
+  display: flex;
+  flex-direction: column;
+  border: $border-color 1px solid;
+}
+
+// children borders & padding
+.card {
+  >*:not(img) {
+    @extend .--padding;
+  }
+
+  >:not(:last-child) {
+    border-bottom: $border-color 1px solid;
+  }
+}
+
+// -- Card children --
+.card {
+  .header, .footer {
+    background: rgba(128, 128, 128, 0.075);
+  }
+  a {
+    color: $link-color;
+    &:hover {
+      text-decoration: unset;
+      color: darken($link-color, 20%);
+    }
+    +a {
+      margin-left: 1rem;
+    }
+  }
+  p {
+    margin-top: 0;
+  }
+  &.center {
+    text-align: center;
+    button {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  &.right {
+    text-align: right;
+    button {
+      margin-left: auto;
+    }
+  }
+}
