@@ -36,11 +36,6 @@ h1,h2,h3,h4,h5,h6 {
   margin: 0;
   font-weight: 600;
 }
-@for $i from 1 through 6 {
-  :not(header) > h#{$i} {
-    margin-bottom: 15px;
-  }
-}
 
 
 
@@ -67,6 +62,9 @@ h1,h2,h3,h4,h5,h6 {
 .card {
   .header, .footer {
     background: rgba(128, 128, 128, 0.075);
+  }
+  .footer {
+    padding: 2px;
   }
   background: white;
   a {

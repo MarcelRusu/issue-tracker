@@ -18,7 +18,7 @@ const COLUMNS = {
   DONE: 'DONE'
 };
 
-const BoardCol = ({columnType, cards}) => (
+const BoardCol = ({columnType, cards, onCardDelete}) => (
   <Droppable droppableId={columnType}>
     {provided => (
       <div
@@ -31,6 +31,7 @@ const BoardCol = ({columnType, cards}) => (
             {(provided, snapshot) => (
               <Story
                 className="m-2"
+                onDelete={() => onCardDelete(id)}
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
@@ -62,6 +63,13 @@ export default () => {
     }));
     setCards(oldCards => ({...oldCards, [COLUMNS.TODO]: initCards}));
   }, []);
+
+  const handleCardDelete = col => id => {
+    setCards(oldCards => ({
+      ...oldCards,
+      [col]: oldCards[col].filter(c => c.id !== id)
+    }));
+  }; 
   
   const onDragEnd = result => {
     if (!result.destination) return;
@@ -81,14 +89,17 @@ export default () => {
     <div className="flex h-full">
       <DragDropContext onDragEnd={onDragEnd}>
         <BoardCol
+          onCardDelete={handleCardDelete(COLUMNS.TODO)}
           cards={cards[COLUMNS.TODO]}
           columnType={COLUMNS.TODO}
         />
         <BoardCol
+          onCardDelete={handleCardDelete(COLUMNS.DOING)}
           cards={cards[COLUMNS.DOING]}
           columnType={COLUMNS.DOING}
         />
         <BoardCol
+          onCardDelete={handleCardDelete(COLUMNS.DONE)}
           cards={cards[COLUMNS.DONE]}
           columnType={COLUMNS.DONE}
         />

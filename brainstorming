@@ -9,7 +9,10 @@ BASIC TODO
 [] netlify
 [x] domain
 [] create tickets
-[] delete tickets
+[] have users
+[x] delete tickets
+ [x] modal
+ [x] state
 
 --
 
