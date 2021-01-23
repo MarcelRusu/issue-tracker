@@ -18,3 +18,5 @@ BASIC TODO
 
 [] Clean up React.forwardRef
 [] make this look nice
+  [x] col headers
+  [] logo at top

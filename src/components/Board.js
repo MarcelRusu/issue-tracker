@@ -18,31 +18,43 @@ const COLUMNS = {
   DONE: 'DONE'
 };
 
+const PRETTY_COLUMN_NAMES = {
+  TODO: 'Todo',
+  DOING: 'Doing',
+  DONE: 'Done'
+};
+
 const BoardCol = ({columnType, cards, onCardDelete}) => (
   <Droppable droppableId={columnType}>
     {provided => (
-      <div
-        {...provided.droppableProps}
-        ref={provided.innerRef}
-        className="mx-5 mb-1 bg-gray-300 rounded w-1/3 h-full overflow-scroll py-2 shadow-inner"
-      >
-        {cards.map(({title, content, id}, i) => (
-          <Draggable key={id} draggableId={id} index={i}>
-            {(provided, snapshot) => (
-              <Story
-                className="m-2"
-                onDelete={() => onCardDelete(id)}
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                title={title}
-              >
-                <p>{content}</p>
-              </Story>
-            )}
-          </Draggable>
-        ))}
-        {provided.placeholder}
+      <div className="mx-5 mb-1 w-1/3 h-full">
+        <h1 className="text-center text-xl">
+          {PRETTY_COLUMN_NAMES[columnType]}
+        </h1>
+        <div
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+          className="bg-gray-300 rounded overflow-scroll shadow-inner"
+          style={{height: '98%'}}
+        >
+          {cards.map(({title, content, id}, i) => (
+            <Draggable key={id} draggableId={id} index={i}>
+              {(provided, snapshot) => (
+                <Story
+                  className="m-2"
+                  onDelete={() => onCardDelete(id)}
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  title={title}
+                >
+                  <p>{content}</p>
+                </Story>
+              )}
+            </Draggable>
+          ))}
+          {provided.placeholder}
+        </div>
       </div>
     )}
   </Droppable>
