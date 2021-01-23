@@ -28,7 +28,7 @@ const BoardCol = ({columnType, cards, onCardDelete}) => (
   <Droppable droppableId={columnType}>
     {provided => (
       <div className="mx-5 mb-1 w-1/3 h-full">
-        <h1 className="text-center text-xl">
+        <h1 contentEditable className="text-center text-xl">
           {PRETTY_COLUMN_NAMES[columnType]}
         </h1>
         <div
