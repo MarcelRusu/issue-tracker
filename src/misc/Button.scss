@@ -1,0 +1,105 @@
+@function light($color) {
+  @return lighten($color, 20%);
+}
+
+@function lighter($color) {
+  @return lighten($color, 40%);
+}
+
+@function dark($color) {
+  @return darken($color, 20%);
+}
+
+@function darker($color) {
+  @return darken($color, 40%);
+}
+
+$link-color: #0d6efd;
+$border-color: #8080806e;
+
+// meta classes
+.--padding-light {
+  padding: 5px;
+}
+
+.--padding {
+  padding: 15px;
+}
+
+.--border-radius {
+  border-radius: 3px;
+}
+
+button {
+  @extend .--border-radius;
+  @extend .--padding-light;
+  background: $link-color;
+  color: white;
+  border: none;
+  width: fit-content;
+  &.danger {
+    background: #fd0d19;
+  }
+
+  margin: 3px;
+
+  &.outline {
+    background: white;
+    color: $link-color;
+    border-color: $link-color;
+    border: $link-color 1px solid;
+    margin: 2px;
+    &:not(:last-child) {
+      border-right: 0;
+    }
+  }
+
+  &:hover {
+    background: darken($link-color, 10%);
+    &.danger {
+      background: darken(#fd0d19, 10%);
+    }
+    color: white;
+  }
+  &:focus {
+    background: darken($link-color, 10%);
+    &.danger {
+      background: darken(#fd0d19, 10%);
+    }
+    color: white;
+    outline: unset;
+    border: light($link-color) 3px solid;
+    &.danger {
+      border: light(#fd0d19) 3px solid;
+    }
+    margin: unset;
+    @extend .--border-radius;
+  }
+}
+
+
+
+.group {
+  display: flex;
+  flex-direction: row;
+  button {
+    margin: 0;
+    border-radius: 0;
+    &:first-child {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    &:last-child {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+    &:focus {
+      background: darken($link-color, 10%);
+      outline: unset;
+      box-shadow: #2196f37a 0px 0 0px 3px;
+      z-index: 2;
+      border: none;
+      margin: unset;
+    }
+  }
+}

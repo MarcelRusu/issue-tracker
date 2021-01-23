@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import Card from '../misc/Card';
+import Story from './Story';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -12,12 +12,6 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const Col = React.forwardRef(({children, ...props}, ref) => (
-  <div {...props} ref={ref} className="mx-5 mb-1 bg-gray-300 rounded w-1/3 h-full overflow-scroll py-2" style={{boxShadow: 'inset #00000040 0px 1px 3px 1px'}}>
-    {children}
-  </div>
-));
-
 const COLUMNS = {
   TODO: 'TODO',
   DOING: 'DOING',
@@ -26,33 +20,29 @@ const COLUMNS = {
 
 const BoardCol = ({columnType, cards}) => (
   <Droppable droppableId={columnType}>
-    {(provided, snapshot) => (
-      <Col
+    {provided => (
+      <div
         {...provided.droppableProps}
         ref={provided.innerRef}
-        // style={getListStyle(snapshot.isDraggingOver)}
+        className="mx-5 mb-1 bg-gray-300 rounded w-1/3 h-full overflow-scroll py-2 shadow-inner"
       >
         {cards.map(({title, content, id}, i) => (
           <Draggable key={id} draggableId={id} index={i}>
             {(provided, snapshot) => (
-              <Card
+              <Story
                 className="m-2"
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
-                // style={getItemStyle(
-                //   snapshot.isDragging,
-                //   provided.draggableProps.style
-                // )}
                 title={title}
               >
                 <p>{content}</p>
-              </Card>
+              </Story>
             )}
           </Draggable>
         ))}
         {provided.placeholder}
-      </Col>
+      </div>
     )}
   </Droppable>
 );

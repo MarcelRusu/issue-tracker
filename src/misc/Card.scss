@@ -70,10 +70,10 @@ h1,h2,h3,h4,h5,h6 {
   }
   background: white;
   a {
-    color: $link-color;
+    color: black;
     &:hover {
       text-decoration: unset;
-      color: darken($link-color, 20%);
+      color: lighten(black, 50%);
     }
     +a {
       margin-left: 1rem;

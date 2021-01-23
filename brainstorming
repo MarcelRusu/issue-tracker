@@ -9,3 +9,9 @@ BASIC TODO
 [] netlify
 [x] domain
 [] create tickets
+[] delete tickets
+
+--
+
+[] Clean up React.forwardRef
+[] make this look nice
