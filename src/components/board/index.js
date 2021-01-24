@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {DragDropContext} from "react-beautiful-dnd";
 
-import Story from './Story';
+import {COLUMNS} from './constants';
+import BoardColumn from './Column';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -12,55 +13,7 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const COLUMNS = {
-  TODO: 'TODO',
-  DOING: 'DOING',
-  DONE: 'DONE'
-};
-
-const PRETTY_COLUMN_NAMES = {
-  TODO: 'Todo',
-  DOING: 'Doing',
-  DONE: 'Done'
-};
-
-const BoardCol = ({columnType, cards, onCardDelete}) => (
-  <Droppable droppableId={columnType}>
-    {provided => (
-      <div className="mx-5 mb-1 w-1/3 h-full">
-        <h1 contentEditable className="text-center text-xl">
-          {PRETTY_COLUMN_NAMES[columnType]}
-        </h1>
-        <div
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-          className="bg-gray-300 rounded overflow-scroll shadow-inner"
-          style={{height: '98%'}}
-        >
-          {cards.map(({title, content, id}, i) => (
-            <Draggable key={id} draggableId={id} index={i}>
-              {(provided, snapshot) => (
-                <Story
-                  className="m-2"
-                  onDelete={() => onCardDelete(id)}
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  title={title}
-                >
-                  <p>{content}</p>
-                </Story>
-              )}
-            </Draggable>
-          ))}
-          {provided.placeholder}
-        </div>
-      </div>
-    )}
-  </Droppable>
-);
-
-export default () => {
+const Board = () => {
   const [cards, setCards] = useState({
     [COLUMNS.TODO]: [],
     [COLUMNS.DOING]: [],
@@ -97,20 +50,21 @@ export default () => {
     }
     setCards(newCards);
   };
+
   return (
     <div className="flex h-full">
       <DragDropContext onDragEnd={onDragEnd}>
-        <BoardCol
+        <BoardColumn
           onCardDelete={handleCardDelete(COLUMNS.TODO)}
           cards={cards[COLUMNS.TODO]}
           columnType={COLUMNS.TODO}
         />
-        <BoardCol
+        <BoardColumn
           onCardDelete={handleCardDelete(COLUMNS.DOING)}
           cards={cards[COLUMNS.DOING]}
           columnType={COLUMNS.DOING}
         />
-        <BoardCol
+        <BoardColumn
           onCardDelete={handleCardDelete(COLUMNS.DONE)}
           cards={cards[COLUMNS.DONE]}
           columnType={COLUMNS.DONE}
@@ -119,3 +73,5 @@ export default () => {
     </div>
   );
 };
+
+export default Board;

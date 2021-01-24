@@ -1,7 +1,7 @@
 import React from 'react';
 import './Card.scss';
 
-export default React.forwardRef(({title, children, onClose, className, ...props}, ref) => (
+const Card = React.forwardRef(({title, children, onClose, className, ...props}, ref) => (
   <div {...props} ref={ref} className={`card ${className}`}>
     <div className="header flex justify-between">
       <h3>{title}</h3>
@@ -10,3 +10,5 @@ export default React.forwardRef(({title, children, onClose, className, ...props}
     {children}
   </div>
 ));
+
+export default Card;

@@ -2,20 +2,9 @@ import React, {useState} from 'react';
 
 import Card from '../misc/Card';
 import Button from '../misc/Button';
+import Overlay from '../misc/Overlay';
 
-const Overlay = ({show, children, onClickOut}) => (
-  <>
-    <div
-      onClick={onClickOut}
-      className="absolute z-0 w-screen h-screen bg-gray-500 opacity-30 left-0 top-0"
-    />
-    <div className={`absolute w-1/5 z-10 top-1/5 ${!show && 'hidden'}`} style={{left: '40%'}}>
-      {children}
-    </div>
-  </>
-);
-
-export default React.forwardRef(({children, onDelete, ...props}, ref) => {
+const Story = React.forwardRef(({children, onDelete, ...props}, ref) => {
   const [showModal, setModal] = useState(false);
   return (
     <>
@@ -44,3 +33,5 @@ export default React.forwardRef(({children, onDelete, ...props}, ref) => {
     </>
   );
 });
+
+export default Story;

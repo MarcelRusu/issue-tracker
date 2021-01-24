@@ -1,12 +1,10 @@
 import Page from './misc/Page';
-import Board from './components/Board';
+import Board from './components/board';
 
-function App() {
-  return (
-    <Page>
-      <Board />
-    </Page>
-  );
-}
+const App = () => (
+  <Page>
+    <Board />
+  </Page>
+);
 
 export default App;
