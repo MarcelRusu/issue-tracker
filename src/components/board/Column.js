@@ -5,11 +5,11 @@ import Story from '../Story';
 import {COLUMNS} from './constants';
 
 
-const BoardColumn = ({columnType, cards, onCardDelete}) => (
-  <Droppable droppableId={columnType}>
+const Column = ({columnType, cards, onCardDelete}) => (
+  <Droppable droppableId={COLUMNS[columnType]}>
     {provided => (
       <div className="mx-5 mb-1 w-1/3 h-full">
-        <h1 contentEditable className="text-center text-xl">
+        <h1 className="text-center text-xl">
           {COLUMNS[columnType]}
         </h1>
         <div
@@ -40,4 +40,4 @@ const BoardColumn = ({columnType, cards, onCardDelete}) => (
   </Droppable>
 );
 
-export default BoardColumn;
+export default Column;

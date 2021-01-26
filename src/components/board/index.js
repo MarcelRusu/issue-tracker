@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {DragDropContext} from "react-beautiful-dnd";
 
 import {COLUMNS} from './constants';
-import BoardColumn from './Column';
+import Column from './Column';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -54,21 +54,14 @@ const Board = () => {
   return (
     <div className="flex h-full">
       <DragDropContext onDragEnd={onDragEnd}>
-        <BoardColumn
-          onCardDelete={handleCardDelete(COLUMNS.TODO)}
-          cards={cards[COLUMNS.TODO]}
-          columnType={COLUMNS.TODO}
-        />
-        <BoardColumn
-          onCardDelete={handleCardDelete(COLUMNS.DOING)}
-          cards={cards[COLUMNS.DOING]}
-          columnType={COLUMNS.DOING}
-        />
-        <BoardColumn
-          onCardDelete={handleCardDelete(COLUMNS.DONE)}
-          cards={cards[COLUMNS.DONE]}
-          columnType={COLUMNS.DONE}
-        />
+        {Object.keys(COLUMNS).map(col => (
+          <Column
+            key={col}
+            onCardDelete={handleCardDelete(COLUMNS[col])}
+            cards={cards[COLUMNS[col]]}
+            columnType={col}
+          />
+        ))}
       </DragDropContext>
     </div>
   );
