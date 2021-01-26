@@ -5,7 +5,16 @@ const Card = React.forwardRef(({title, children, onClose, className, ...props}, 
   <div {...props} ref={ref} className={`card ${className}`}>
     <div className="header flex justify-between">
       <h3>{title}</h3>
-      <a href="#" onClick={onClose} className="text-red-50">x</a>
+      <a
+        href="#"
+        className="text-red-50"
+        onClick={e => {
+          e.stopPropagation();
+          onClose && onClose(e);
+        }}
+      >
+        x
+      </a>
     </div>
     {children}
   </div>

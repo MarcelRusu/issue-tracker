@@ -3,6 +3,7 @@ import './Column.scss';
 
 import Story from '../Story';
 import {COLUMNS} from './constants';
+import UserLink from '../UserLink';
 
 
 const Column = ({columnType, cards, onCardDelete}) => (
@@ -17,7 +18,7 @@ const Column = ({columnType, cards, onCardDelete}) => (
           ref={provided.innerRef}
           className="bg-gray-300 rounded overflow-scroll shadow-inner board-col"
         >
-          {cards.map(({title, content, id}, i) => (
+          {cards.map(({title, content, author, id}, i) => (
             <Draggable key={id} draggableId={id} index={i}>
               {provided => (
                 <Story
@@ -26,9 +27,10 @@ const Column = ({columnType, cards, onCardDelete}) => (
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  title={title}
+                  card={{title, content, author}}
                 >
                   <p>{content}</p>
+                  <UserLink user={author}>{author}</UserLink>
                 </Story>
               )}
             </Draggable>

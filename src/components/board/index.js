@@ -24,7 +24,8 @@ const Board = () => {
       order: i,
       title: `Item #${i + 1}`,
       id: `Item #${i + 1}`,
-      content: 'Has to finish this issue tracker'
+      content: 'Has to finish this issue tracker',
+      author: 'Marcel Rusu'
     }));
     setCards(oldCards => ({...oldCards, [COLUMNS.TODO]: initCards}));
   }, []);
