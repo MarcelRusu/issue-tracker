@@ -1,14 +1,11 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {usePopper} from 'react-popper';
 
 import Card from '../misc/Card';
 
-const UserLink = ({user}) => {
+const UserLink = ({user, showPopper}) => {
   const refElement = useRef(null), popperElement = useRef(null);
-  const {styles, attributes} = usePopper(
-    refElement.current,
-    popperElement.current
-  );
+  const {styles, attributes} = usePopper(refElement.current, popperElement.current);
   const [showUser, setShowUser] = useState(false);
   return (
     <>
@@ -23,7 +20,7 @@ const UserLink = ({user}) => {
       >
         {user}
       </a>
-      {showUser &&
+      {showUser && showPopper &&
         <Card
           {...attributes.popper}
           ref={popperElement}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {DragDropContext} from "react-beautiful-dnd";
 
 import {COLUMNS} from './constants';
@@ -13,12 +13,15 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const Board = () => {
+export const DraggingContext = React.createContext(false);
+
+const Board = () => {  
   const [cards, setCards] = useState({
     [COLUMNS.TODO]: [],
     [COLUMNS.DOING]: [],
     [COLUMNS.DONE]: []
   });
+  const [isDragging, setDragging] = useState(false);
   useEffect(() => {
     const initCards = Array.from({length: 7}).map((_, i) => ({
       order: i,
@@ -38,6 +41,7 @@ const Board = () => {
   }; 
   
   const onDragEnd = result => {
+    setDragging(false);
     if (!result.destination) return;
     const col = result.destination.droppableId;
     const oldCol = result.source.droppableId;
@@ -53,18 +57,20 @@ const Board = () => {
   };
 
   return (
-    <div className="flex h-full">
-      <DragDropContext onDragEnd={onDragEnd}>
-        {Object.keys(COLUMNS).map(col => (
-          <Column
-            key={col}
-            onCardDelete={handleCardDelete(COLUMNS[col])}
-            cards={cards[COLUMNS[col]]}
-            columnType={col}
-          />
-        ))}
-      </DragDropContext>
-    </div>
+    <DraggingContext.Provider value={isDragging}>
+      <div className="flex h-full">
+        <DragDropContext onDragStart={() => setDragging(true)} onDragEnd={onDragEnd}>
+          {Object.keys(COLUMNS).map(col => (
+            <Column
+              key={col}
+              onCardDelete={handleCardDelete(COLUMNS[col])}
+              cards={cards[COLUMNS[col]]}
+              columnType={col}
+            />
+          ))}
+        </DragDropContext>
+      </div>
+    </DraggingContext.Provider>
   );
 };
 
