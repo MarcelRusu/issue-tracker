@@ -1,12 +1,20 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState, useContext} from 'react';
 import {usePopper} from 'react-popper';
 
+import {DraggingContext} from './board';
 import Card from '../misc/Card';
 
-const UserLink = ({user, showPopper}) => {
+const UserLink = ({user}) => {
   const refElement = useRef(null), popperElement = useRef(null);
   const {styles, attributes} = usePopper(refElement.current, popperElement.current);
   const [showUser, setShowUser] = useState(false);
+  const isDragging = useContext(DraggingContext)  
+  useEffect(() => {
+    if (isDragging) {
+      setShowUser(false);
+    }
+  }, [isDragging]);
+
   return (
     <>
       <a
@@ -20,7 +28,7 @@ const UserLink = ({user, showPopper}) => {
       >
         {user}
       </a>
-      {showUser && showPopper &&
+      {showUser &&
         <Card
           {...attributes.popper}
           ref={popperElement}
