@@ -32,7 +32,7 @@ const NewTask = ({onClose}) => {
 
   return (
     <Overlay onClickOut={onClose}>
-      <Card title="Create a new task...">
+      <Card title="Create a new task..." onClose={onClose}>
         <input
           onChange={e => setTask(t => ({...t, title: e.target.value}))}
           value={title}
