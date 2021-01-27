@@ -1,0 +1,7 @@
+a {
+  color: rgb(24, 94, 224);
+  &:hover {
+    text-decoration: unset;
+    color: lighten(rgb(24, 94, 224), 10%);
+  }
+}

@@ -8,7 +8,7 @@ import UserLink from '../UserLink';
 const Column = ({columnType, cards, onCardDelete}) => (
   <Droppable droppableId={COLUMNS[columnType]}>
     {provided => (
-      <div className="mx-5 mb-1 w-1/3 h-full">
+      <div className="mx-5 mb-1 w-1/3">
         <h1 className="text-center text-xl">
           {COLUMNS[columnType]}
         </h1>

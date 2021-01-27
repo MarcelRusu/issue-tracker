@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DragDropContext} from "react-beautiful-dnd";
 
 import {COLUMNS} from './constants';
