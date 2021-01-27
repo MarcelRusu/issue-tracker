@@ -41,7 +41,7 @@ const Story = React.forwardRef(({children, onDelete, card, ...props}, ref) => {
     <>
       {showDelete &&
         <Overlay onClickOut={() => setShowDelete(false)}>
-          <DeleteModal onExit={() => setShowDelete(false)} />
+          <DeleteModal onExit={() => setShowDelete(false)} onDelete={onDelete} />
         </Overlay>
       }
       {showDetails &&

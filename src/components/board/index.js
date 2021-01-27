@@ -26,7 +26,7 @@ const Board = () => {
     const initCards = Array.from({length: 7}).map((_, i) => ({
       order: i,
       title: `Item #${i + 1}`,
-      id: `Item #${i + 1}`,
+      id: `${i + 1}`,
       content: 'Has to finish this issue tracker',
       author: 'Marcel Rusu'
     }));

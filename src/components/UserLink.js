@@ -3,6 +3,8 @@ import {usePopper} from 'react-popper';
 
 import {DraggingContext} from './board';
 import Card from '../misc/Card';
+import Overlay from '../misc/Overlay';
+import {noProp} from '../misc/utils';
 
 const UserLink = ({user}) => {
   const [referenceElement, setReferenceElement] = useState(null);
@@ -21,28 +23,30 @@ const UserLink = ({user}) => {
       <a
         ref={setReferenceElement}
         className="unset"
-        onClick={e => {
-          e.stopPropagation();
-          setShowUser(v => !v);
-        }}
+        onClick={noProp(() => setShowUser(v => !v))}
         href="#marcel-rusu"
       >
         {user}
       </a>
       {showUser &&
-        <Card
-          {...attributes.popper}
-          ref={setPopperElement}
-          style={styles.popper}
-          className="cursor-default"
-          onClick={e => e.stopPropagation()}
-          title={user}
-          onClose={() => setShowUser(false)}
+        <Overlay
+          invisible={true}
+          onClickOut={noProp(() => setShowUser(false))}
         >
-          <p>
-            <a href="#tickets">10</a> tickets on <a href="#other-board">5</a> other boards
-          </p>
-        </Card>
+          <Card
+            {...attributes.popper}
+            ref={setPopperElement}
+            style={styles.popper}
+            onClick={noProp()}
+            className="cursor-default"
+            title={user}
+            onClose={() => setShowUser(false)}
+          >
+            <p>
+              <a href="#tickets">10</a> tickets on <a href="#other-board">5</a> other boards
+            </p>
+          </Card>
+        </Overlay>
       }
     </>
   );

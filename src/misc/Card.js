@@ -1,6 +1,8 @@
 import React from 'react';
 import './Card.scss';
 
+import {noProp} from './utils';
+
 const Card = React.forwardRef(({title, children, onClose, className, ...props}, ref) => (
   <div {...props} ref={ref} className={`card ${className}`}>
     <div className="header flex justify-between">
@@ -8,10 +10,7 @@ const Card = React.forwardRef(({title, children, onClose, className, ...props}, 
       <a
         href="#"
         className="text-red-50"
-        onClick={e => {
-          e.stopPropagation();
-          onClose && onClose(e);
-        }}
+        onClick={noProp(onClose)}
       >
         x
       </a>
