@@ -1,4 +1,4 @@
 export const noProp = f => e => {
   e.stopPropagation();
-  f && f(e)
+  f && f(e);
 };

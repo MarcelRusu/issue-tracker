@@ -50,6 +50,6 @@ const UserLink = ({user}) => {
       }
     </>
   );
-}
+};
 
 export default UserLink;

@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {DragDropContext} from "react-beautiful-dnd";
 
 import {COLUMNS} from './constants';
 import Column from './Column';
+import {TasksContext} from '../../App';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -16,27 +17,23 @@ const reorder = (list, startIndex, endIndex) => {
 export const DraggingContext = React.createContext(false);
 
 const Board = () => {  
-  const [cards, setCards] = useState({
-    [COLUMNS.TODO]: [],
-    [COLUMNS.DOING]: [],
-    [COLUMNS.DONE]: []
-  });
+  const {tasks, setTasks} = useContext(TasksContext);
   const [isDragging, setDragging] = useState(false);
   useEffect(() => {
-    const initCards = Array.from({length: 7}).map((_, i) => ({
+    const initStories = Array.from({length: 7}).map((_, i) => ({
       order: i,
       title: `Item #${i + 1}`,
       id: `${i + 1}`,
       content: 'Has to finish this issue tracker',
       author: 'Marcel Rusu'
     }));
-    setCards(oldCards => ({...oldCards, [COLUMNS.TODO]: initCards}));
+    setTasks(oldStories => ({...oldStories, [COLUMNS.TODO]: initStories}));
   }, []);
 
-  const handleCardDelete = col => id => {
-    setCards(oldCards => ({
-      ...oldCards,
-      [col]: oldCards[col].filter(c => c.id !== id)
+  const handleStoryDelete = col => id => {
+    setTasks(oldStory => ({
+      ...oldStory,
+      [col]: oldStory[col].filter(c => c.id !== id)
     }));
   }; 
   
@@ -45,15 +42,15 @@ const Board = () => {
     if (!result.destination) return;
     const col = result.destination.droppableId;
     const oldCol = result.source.droppableId;
-    let newCards = {...cards}; // TODO: this should be deep
+    let newTasks = {...tasks}; // TODO: this should be deep
     if (oldCol === col) {
-      newCards[col] = reorder(cards[col], result.source.index, result.destination.index);
+      newTasks[col] = reorder(tasks[col], result.source.index, result.destination.index);
     } else {
-      const newColCards = cards[col].concat(cards[oldCol][result.source.index]);  
-      newCards[col] = reorder(newColCards, newColCards.length - 1, result.destination.index);
-      newCards[oldCol].splice(result.source.index, 1);
+      const newColStories = tasks[col].concat(tasks[oldCol][result.source.index]);  
+      newTasks[col] = reorder(newColStories, newColStories.length - 1, result.destination.index);
+      newTasks[oldCol].splice(result.source.index, 1);
     }
-    setCards(newCards);
+    setTasks(newTasks);
   };
 
   return (
@@ -63,8 +60,8 @@ const Board = () => {
           {Object.keys(COLUMNS).map(col => (
             <Column
               key={col}
-              onCardDelete={handleCardDelete(COLUMNS[col])}
-              cards={cards[COLUMNS[col]]}
+              onDelete={handleStoryDelete(COLUMNS[col])}
+              tasks={tasks[COLUMNS[col]]}
               columnType={col}
             />
           ))}

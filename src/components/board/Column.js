@@ -5,7 +5,7 @@ import Story from '../Story';
 import {COLUMNS} from './constants';
 import UserLink from '../UserLink';
 
-const Column = ({columnType, cards, onCardDelete}) => (
+const Column = ({columnType, tasks, onDelete}) => (
   <Droppable droppableId={COLUMNS[columnType]}>
     {provided => (
       <div className="mx-5 mb-1 w-1/3">
@@ -17,16 +17,16 @@ const Column = ({columnType, cards, onCardDelete}) => (
           ref={provided.innerRef}
           className="bg-gray-300 rounded overflow-scroll shadow-inner board-col"
         >
-          {cards.map(({title, content, author, id}, i) => (
+          {tasks.map(({title, content, author, id}, i) => (
             <Draggable key={id} draggableId={id} index={i}>
               {provided => (
                 <Story
                   className="m-2"
-                  onDelete={() => onCardDelete(id)}
+                  onDelete={() => onDelete(id)}
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  card={{title, content, author}}
+                  task={{title, content, author}}
                 >
                   <p>{content}</p>
                   <UserLink user={author}>

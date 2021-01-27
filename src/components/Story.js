@@ -19,21 +19,21 @@ const DeleteModal = ({onExit, onDelete}) => (
   </Card>
 );
 
-const DetailsModal = ({card, onExit}) => {
+const DetailsModal = ({task, onExit}) => {
   return (
-    <Card title={card.title} className="shadow" onClose={onExit}>
+    <Card title={task.title} className="shadow" onClose={onExit}>
       <p>
         <h5>Description:</h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </p>
       <p className="flex">
         <h5>Assigned:</h5>
-        <UserLink user={card.author} />
+        <UserLink user={task.author} />
       </p>
     </Card>
   );
-}
+};
 
-const Story = React.forwardRef(({children, onDelete, card, ...props}, ref) => {
+const Story = React.forwardRef(({children, onDelete, task, ...props}, ref) => {
   const [showDelete, setShowDelete] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -46,12 +46,12 @@ const Story = React.forwardRef(({children, onDelete, card, ...props}, ref) => {
       }
       {showDetails &&
         <Overlay onClickOut={() => setShowDetails(false)}>
-          <DetailsModal card={card} onExit={() => setShowDetails(false)} />
+          <DetailsModal task={task} onExit={() => setShowDetails(false)} />
         </Overlay>
       }
       <Card
         {...props}
-        title={card.title}
+        title={task.title}
         ref={ref}
         onClick={() => setShowDetails(true)}
         onClose={() => setShowDelete(true)}b
