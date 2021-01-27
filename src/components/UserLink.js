@@ -38,7 +38,7 @@ const UserLink = ({user}) => {
             ref={setPopperElement}
             style={styles.popper}
             onClick={noProp()}
-            className="cursor-default"
+            className="cursor-default w-max"
             title={user}
             onClose={() => setShowUser(false)}
           >
