@@ -1,34 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {DragDropContext} from "react-beautiful-dnd";
 
 import {COLUMNS} from './constants';
 import Column from './Column';
-import {TasksContext} from '../../App';
+import {TasksContext, DraggingContext} from '../../contexts';
 
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
+import {reorder} from '../../misc/utils'
 
-  return result;
-};
-
-export const DraggingContext = React.createContext(false);
 
 const Board = () => {  
   const {tasks, setTasks} = useContext(TasksContext);
   const [isDragging, setDragging] = useState(false);
-  useEffect(() => {
-    const initStories = Array.from({length: 7}).map((_, i) => ({
-      order: i,
-      title: `Item #${i + 1}`,
-      id: `${i + 1}`,
-      content: 'Has to finish this issue tracker',
-      author: 'Marcel Rusu'
-    }));
-    setTasks(oldStories => ({...oldStories, [COLUMNS.TODO]: initStories}));
-  }, []);
 
   const handleStoryDelete = col => id => {
     setTasks(oldStory => ({

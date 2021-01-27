@@ -17,7 +17,7 @@ const Column = ({columnType, tasks, onDelete}) => (
           ref={provided.innerRef}
           className="bg-gray-300 rounded overflow-scroll shadow-inner board-col"
         >
-          {tasks.map(({title, content, author, id}, i) => (
+          {tasks.map(({title, description, author, id}, i) => (
             <Draggable key={id} draggableId={id} index={i}>
               {provided => (
                 <Story
@@ -26,9 +26,9 @@ const Column = ({columnType, tasks, onDelete}) => (
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  task={{title, content, author}}
+                  task={{title, description, author}}
                 >
-                  <p>{content}</p>
+                  <p>{description}</p>
                   <UserLink user={author}>
                     {author}
                   </UserLink>

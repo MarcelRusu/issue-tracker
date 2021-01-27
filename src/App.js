@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 
 import Page from './misc/Page';
-import Board from './components/board';
 import Button from './misc/Button';
-import UserLink from './components/UserLink';
-import {COLUMNS} from './components/board/constants';
 
-export const TasksContext = React.createContext({
-  tasks: [],
-  setTasks: () => {}
-});
+import Board from './components/board';
+import UserLink from './components/UserLink';
+import NewTask from './components/NewTask';
+
+import {COLUMNS} from './components/board/constants';
+import {TasksContext} from './contexts';
 
 const App = () => {
   const [tasks, setTasks] = useState({
@@ -17,13 +16,29 @@ const App = () => {
     [COLUMNS.DOING]: [],
     [COLUMNS.DONE]: []
   });
+  useEffect(() => {
+    const initStories = Array.from({length: 7}).map((_, i) => ({
+      order: i,
+      title: `Item #${i + 1}`,
+      id: `${i + 1}`,
+      description: 'Has to finish this issue tracker',
+      author: 'Marcel Rusu'
+    }));
+    setTasks(oldStories => ({...oldStories, [COLUMNS.TODO]: initStories}));
+  }, []);
+
+  const [showNewTask, setShowNewTask] = useState(false);
+
   return (
     <TasksContext.Provider value={{tasks, setTasks}}>
       <Page>
         <header className="flex justify-between align-middle">
           <div className="flex flex-col">
             <UserLink user={'Marcel Rusu'} />
-            <Button>New</Button>
+            <Button onClick={() => setShowNewTask(true)}>New</Button>
+            {showNewTask &&
+              <NewTask onClose={() => setShowNewTask(false)} />
+            }
           </div>
           <div className="flex flex-col">
             <h1 className="text-5xl text-center">

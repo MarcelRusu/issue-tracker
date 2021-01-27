@@ -1,7 +1,7 @@
 import {useEffect, useState, useContext} from 'react';
 import {usePopper} from 'react-popper';
 
-import {DraggingContext} from './board';
+import {DraggingContext} from '../contexts';
 import Card from '../misc/Card';
 import Overlay from '../misc/Overlay';
 import {noProp} from '../misc/utils';
