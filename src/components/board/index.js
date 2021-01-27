@@ -58,7 +58,7 @@ const Board = () => {
 
   return (
     <DraggingContext.Provider value={isDragging}>
-      <div className="flex h-full">
+      <div className="flex" style={{height: '83%'}}>
         <DragDropContext onDragStart={() => setDragging(true)} onDragEnd={onDragEnd}>
           {Object.keys(COLUMNS).map(col => (
             <Column

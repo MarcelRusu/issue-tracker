@@ -5,11 +5,16 @@ import UserLink from './components/UserLink';
 
 const App = () => (
   <Page>
-    <header className="flex justify-between">
+    <header className="flex justify-between align-middle">
       <UserLink user={'Marcel Rusu'} />
-      <h1 className="text-5xl">
-        eFocus
-      </h1>
+      <div className="flex flex-col">
+        <h1 className="text-5xl text-center">
+          eFocus
+        </h1>
+        <div className="muted">
+          The best issue tracker on the web!
+        </div>
+      </div>
       <Button className="justify-right">
         Sign Out
       </Button>
